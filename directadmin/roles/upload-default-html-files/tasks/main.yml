@@ -1,0 +1,8 @@
+---
+- name: upload PNG logo
+  become: yes
+  copy: src=logo.png dest=/var/www/html/logo.png
+
+- name: upload index html
+  become: yes
+  copy: src=index.html dest=/var/www/html/index.html

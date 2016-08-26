@@ -1,0 +1,5 @@
+---
+- hosts: directadmin
+  user: ubuntu
+  roles:
+    - upload-default-html-files

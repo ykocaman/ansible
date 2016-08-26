@@ -1,0 +1,11 @@
+---
+- hosts: all
+  user: ubuntu
+  tasks:
+  - name: tr.subdomains.ubuntu.com => .ubuntu.com
+    replace:  dest=/etc/apt/sources.list regexp='http://tr.' replace='http://' backup=yes
+    become: yes
+
+  - name: gb.subdomains.ubuntu.com => subdomains.ubuntu.com
+    replace:  dest=/etc/apt/sources.list regexp='http://gb.' replace='http://' backup=yes
+    become: yes

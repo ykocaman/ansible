@@ -1,0 +1,14 @@
+---
+- hosts: all
+  user: ubuntu
+  tasks:
+  - name: kill active apt-get process
+    command: pkill apt-get
+    become: true
+    register: result
+    failed_when: result.rc > 1 # rc == 1 if the script is inactive
+    changed_when: result.rc == 0
+
+  - name: upgrade dist
+    apt: upgrade=dist update_cache=yes force=yes cache_valid_time=300 autoremove=true dpkg_options='force-confold,force-confdef'
+    become: yes
