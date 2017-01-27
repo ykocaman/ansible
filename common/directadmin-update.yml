@@ -1,0 +1,13 @@
+---
+- name: Directadmin Update
+- hosts: directadmin
+  user: ubuntu
+  sudo: true
+  sudo_user: root
+
+  tasks:
+    - name: update cache
+      shell: ./build update  chdir="/usr/local/directadmin/custombuild"
+
+    - name: update all packages
+      shell: ./build update_versions  chdir="/usr/local/directadmin/custombuild"
