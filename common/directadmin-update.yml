@@ -6,6 +6,9 @@
   sudo_user: root
 
   tasks:
+    - name: search fastest source
+      shell: ./build set_fastest  chdir="/usr/local/directadmin/custombuild"
+
     - name: update cache
       shell: ./build update  chdir="/usr/local/directadmin/custombuild"
 
