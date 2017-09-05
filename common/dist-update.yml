@@ -2,13 +2,28 @@
 - hosts: all
   user: ubuntu
   tasks:
+  - name: update time
+    command: ntpdate ntp.ubuntu.com
+    become: yes
+
   - name: kill active apt-get process
     command: pkill apt-get
-    become: true
+    become: yes
     register: result
     failed_when: result.rc > 1 # rc == 1 if the script is inactive
     changed_when: result.rc == 0
 
-  - name: upgrade dist
-    apt: upgrade=dist update_cache=yes force=yes cache_valid_time=300 autoremove=true dpkg_options='force-confold,force-confdef'
+  - name: update cache
     become: yes
+    apt:
+      update_cache: yes
+      cache_valid_time: 600
+
+  - name: upgrade dist
+    become: yes
+    apt: 
+      upgrade: dist
+      autoremove: yes
+      purge: yes
+      force: yes
+      dpkg_options: 'force-confold,force-confdef'
